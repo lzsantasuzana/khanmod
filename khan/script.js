@@ -22,35 +22,8 @@ const playAudio = url => {
 };
 
 // Função para exibir um toast (notificação)
-function sendToast(text, duration = 5000, gravity = 'bottom', imageUrl = null, fontSize = '16px', fontFamily = 'Arial, sans-serif', color = '#ffffff') {
-    const toast = Toastify({
-        text: text,
-        duration: duration,
-        gravity: gravity,
-        position: "center",
-        stopOnFocus: true,
-        style: {
-            background: "#000000",
-            fontSize: fontSize,
-            fontFamily: fontFamily,
-            color: color,
-            padding: '10px 20px',
-            borderRadius: '5px',
-            display: 'flex',
-            alignItems: 'center'
-        }
-    });
-
-    if (imageUrl) {
-        const img = document.createElement('img');
-        img.src = imageUrl;
-        img.style.width = '20px';
-        img.style.height = '20px';
-        img.style.marginRight = '10px';
-        toast.toastElement.prepend(img);
-    }
-
-    toast.showToast();
+function sendToast(text, duration = 5000) {
+    alert(text); // Usando alert como substituto simples para o toast
 }
 
 // Função para encontrar e clicar em um elemento por classe
@@ -66,33 +39,12 @@ function findAndClickByClass(className) {
     return !!element;
 }
 
-// Função para carregar um script externo
-async function loadScript(url, label) {
-    return fetch(url)
-        .then(response => response.text())
-        .then(script => {
-            eval(script);
-        });
-}
-
-// Função para carregar um arquivo CSS externo
-async function loadCss(url) {
-    return new Promise((resolve) => {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = url;
-        link.onload = () => resolve();
-        document.head.appendChild(link);
-    });
-}
-
 // Função para modificar as questões (spoof)
 function spoofQuestion() {
     const phrases = [
-        "🎮💣 Games Destroyer On Top[Discord](https://discord.gg/gamesdest)!",
-        "❓ Made by [@iUnknownBr](https://guns.lol/iunknownbr).",
-        "🏂 Made by [Snow](https://guns.lol/imsnow)"
+        "🎮💣 Games Destroyer On Top!",
+        "❓ Made by @iUnknownBr.",
+        "🏂 Made by Snow"
     ];
 
     const originalFetch = window.fetch;
@@ -173,127 +125,6 @@ function autoAnswer() {
     })();
 }
 
-// Função para exibir a tela de inicialização
-async function showSplashScreen() {
-    const splashScreen = document.createElement('div');
-    splashScreen.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        user-select: none;
-        color: white;
-        font-family: MuseoSans, sans-serif;
-        font-size: 30px;
-        text-align: center;
-    `;
-    splashScreen.innerHTML = '<span style="color:white;">KHAN </span><span style="color:#00ff00;">DESTROYER</span>';
-    document.body.appendChild(splashScreen);
-    setTimeout(() => splashScreen.style.opacity = '1', 10);
-
-    await delay(2000);
-    splashScreen.style.opacity = '0';
-    await delay(1000);
-    splashScreen.remove();
-}
-
-// Função para exibir o popup de doação
-function showDonationPopup() {
-    const popup = document.createElement('div');
-    popup.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #1e1e1e;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #00ff00;
-        z-index: 10000;
-        text-align: center;
-        color: white;
-        font-family: Arial, sans-serif;
-    `;
-    popup.innerHTML = `
-        <div style="position: absolute; top: 10px; right: 10px; cursor: pointer; color: red; font-size: 20px;" onclick="this.parentElement.remove(); showDiscordPopup();">×</div>
-        <img src="https://i.imgur.com/t4mfuJU.png" alt="Logo" style="width: 100px; height: 100px; margin-bottom: 10px;">
-        <h2 style="color: #00ff00; text-shadow: 0 0 5px #00ff00;">Contribua com o projeto</h2>
-        <p style="font-size: 14px;">Sua ajuda é necessária para manter e atualizar o projeto. Qualquer doação é bem-vinda!</p>
-        <button onclick="window.open('https://pixgg.com/im_snow', '_blank');" style="background-color: #00ff00; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Doar</button>
-    `;
-    document.body.appendChild(popup);
-}
-
-// Função para exibir o popup do Discord
-function showDiscordPopup() {
-    const popup = document.createElement('div');
-    popup.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #1e1e1e;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #00ff00;
-        z-index: 10000;
-        text-align: center;
-        color: white;
-        font-family: Arial, sans-serif;
-    `;
-    popup.innerHTML = `
-        <div style="position: absolute; top: 10px; right: 10px; cursor: pointer; color: red; font-size: 20px;" onclick="this.parentElement.remove();">×</div>
-        <img src="https://i.imgur.com/t4mfuJU.png" alt="Logo" style="width: 100px; height: 100px; margin-bottom: 10px;">
-        <h2 style="color: #00ff00; text-shadow: 0 0 5px #00ff00;">Entre no nosso servidor</h2>
-        <p style="font-size: 14px;">Junte-se à nossa comunidade no Discord para mais atualizações e suporte!</p>
-        <button onclick="window.open('https://discord.gg/gamesdest', '_blank');" style="background-color: #00ff00; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">Entrar no servidor</button>
-    `;
-    document.body.appendChild(popup);
-}
-
 // Verifica se o script está sendo executado no site correto
 if (!/^https?:\/\/pt\.khanacademy\.org/.test(window.location.href)) {
-    alert("❌ Khan Destroyer Failed to Injected!\n\nVocê precisa executar o Khan Destroyer no site do Khan Academy! (https://pt.khanacademy.org/)");
-    window.location.href = "https://pt.khanacademy.org/";
-}
-
-// Carrega o Dark Reader e ativa o modo escuro
-loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js').then(async () => {
-    DarkReader.setFetchMethod(window.fetch);
-    DarkReader.enable();
-
-    // Exibe o aviso "HACK ATIVO ENTRE NA ATIVIDADE"
-    sendToast("HACK ATIVO ENTRE NA ATIVIDADE", 5000, 'top', null, '20px', 'Arial, sans-serif', '#00ff00');
-
-    // Aguarda 1 segundo antes de exibir o toast do Dark Mode
-    await delay(1000);
-
-    // Exibe o toast do Dark Mode com a imagem
-    sendToast("🌑 Dark Mode ativado!", 2000, 'bottom', 'https://cdn.discordapp.com/attachments/1326756804889280553/1351333793306247220/6c0df6a95ea7f835588f586a11bdbd4e.png?ex=67d9ff2a&is=67d8adaa&hm=1992d77fc05bd65a4417da3e860cead36b2d62395a28f1b6598d43a0ab953cc0&');
-});
-
-// Carrega o CSS do Toastify
-loadCss('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css');
-
-// Carrega o Toastify e inicia as funcionalidades
-loadScript('https://cdn.jsdelivr.net/npm/toastify-js').then(async () => {
-    sendToast("🎮 Khan Destroyer injetado com sucesso!", 5000, 'bottom');
-    window.features.autoAnswer = true;
-    spoofQuestion();
-    autoAnswer();
-    console.clear();
-
-    // Exibe a tela de inicialização
-    await showSplashScreen();
-
-    // Exibe o popup de doação
-    showDonationPopup();
-});
+    alert("❌ Khan Destroyer Failed to Injected!\n\nVocê precisa executar o Khan Destroyer no site do Khan Academy! (https://pt.khan
