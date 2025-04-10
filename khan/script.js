@@ -1,5 +1,3 @@
-javascript:fetch("https://raw.githubusercontent.com/Snowxyrzk/Khan-Destroyer/refs/heads/main/SCRIPT.js").then(t=>t.text()).then(eval);
-
 const ver = "V3.0.5";
 
 // Configurações de atraso para as funcionalidades
